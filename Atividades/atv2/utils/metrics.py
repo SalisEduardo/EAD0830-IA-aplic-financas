@@ -12,8 +12,8 @@ def get_metrics(model,y_true,X_true):
     precision = precision_score(y_true, y_pred)
     recall = recall_score(y_true, y_pred)
     f1 = f1_score(y_true, y_pred)
-    fpr, tpr, thresholds = roc_curve(y_true, y_pred_proba )
-    auc = roc_auc_score(y_true, y_pred_proba )
+    fpr, tpr, thresholds = roc_curve(y_true, y_pred_proba[:,-1] )
+    auc = roc_auc_score(y_true, y_pred_proba[:,-1] )
     cm = confusion_matrix(y_true, y_pred)
     report = classification_report(y_true, y_pred)
 

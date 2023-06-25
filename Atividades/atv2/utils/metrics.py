@@ -4,9 +4,16 @@ import numpy as np
 from sklearn.metrics import accuracy_score ,confusion_matrix ,precision_score, recall_score, f1_score, classification_report ,roc_curve, roc_auc_score ,roc_curve, auc, ConfusionMatrixDisplay , RocCurveDisplay
 from matplotlib import pyplot as plt
 
-def get_metrics(model,y_true,X_true):
-    y_pred =  model.predict(X_true)
-    y_pred_proba =  model.predict_proba(X_true)
+def get_metrics(model,y_true,X_true,probs=None,predictions=None):
+    if predictions is None:
+        y_pred =  model.predict(X_true)
+    else:
+        y_pred = predictions
+
+    if probs is None:
+        y_pred_proba =  model.predict_proba(X_true)
+    else:
+        y_pred_proba = probs
 
     accuracy = accuracy_score(y_true, y_pred)
     precision = precision_score(y_true, y_pred)
@@ -33,6 +40,10 @@ def get_metrics(model,y_true,X_true):
     }
 
     return metrics
+
+
+
+
 
 def  display_metrics(train_metrics_report,test_metrics_report,not_show=['Confussion Matrix','Classification Report','False Positive Ratio','True Positive Ratio','Thresholds']):
     for k in train_metrics_report.keys():

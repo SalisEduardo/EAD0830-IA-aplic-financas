@@ -54,6 +54,14 @@ adjusted_close_list <- lapply(selected_tickers, getAdjustedClose)
 
 stocks_prices <- do.call(cbind, adjusted_close_list)
 
+stocks_prices_df <- stocks_prices |> as.data.frame()
+
+
+stocks_prices_df$date <- rownames(stocks_prices_df)
+
+stocks_prices_df <-cbind(stocks_prices_df['date'],stocks_prices_df[colnames(stocks_prices)])
+
+stocks_prices_df |> write.csv('stock_prices.csv')
 
 colnames(stocks_prices) <- gsub("\\.SA.Adjusted$", "", colnames(stocks_prices))
 colnames(stocks_prices) <- gsub("\\.Adjusted$", "", colnames(stocks_prices))
